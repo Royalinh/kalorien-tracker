@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kalorien-Tracker + Tipps</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body{
+      font-family:sans-serif;max-width:720px;margin:auto;padding:24px;
+      background:#f6fbff;line-height:1.5
+    }
+    h1{color:#1b35dd;margin-bottom:.2em}
+    input,button{
+      padding:8px 10px;margin:4px 0;border:1px solid #ccc;border-radius:4px
+    }
+    button{cursor:pointer;background:#2e8b57;color:#fff;border:none}
+    button:hover{opacity:.9}
+    .item{border-bottom:1px dotted #aaa;padding:4px 0}
+    #total{font-weight:700;color:#4d5b79;margin-top:10px}
+    .tip-box{
+      margin-top:24px;padding:16px;
+      background:#b38bc9;border-left:5px solid #2e8b57;border-radius:4px
+    }
+    .tip-box h3{margin:.2em 0}
+    .flex{display:flex;gap:8px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <h1>🍏 Kalorien-Tracker</h1>
+
+  <div class="flex">
+    <input type="text" id="food"     placeholder="Name des Essens" style="flex:2 1 200px" />
+    <input type="number" id="cal"    placeholder="kcal"             style="width:100px" />
+    <button onclick="addEntry()">Hinzufügen</button>
+    <button onclick="resetAll()" style="background:#c0392b">Reset</button>
+  </div>
+
+  <div id="log"></div>
+  <div id="total">Gesamtkalorien: 0</div>
+
+  <!-- GỢI Ý -->
+  <div class="tip-box">
+    <h3>🥣 Frühstück</h3>
+    <ul>
+      <li>Haferflocken + Banane + Chiasamen (~300 kcal)</li>
+      <li>Vollkornbrot + gekochtes Ei (~250 kcal)</li>
+      <li>Grüner Smoothie (Spinat + Apfel) (~180 kcal)</li>
+    </ul>
+
+    <h3>🍛 Mittagessen</h3>
+    <ul>
+      <li>Quinoa + gebratenes Gemüse (~450 kcal)</li>
+      <li>Hähnchenbrust + Süßkartoffel + Brokkoli (~500 kcal)</li>
+      <li>Linsensuppe + Salat (~400 kcal)</li>
+    </ul>
+
+    <h3>🍲 Abendessen</h3>
+    <ul>
+      <li>Gemüse-Omelett + Tomatensalat (~350 kcal)</li>
+      <li>Tofu-Stir-Fry + Reis (~400 kcal)</li>
+      <li>Zucchini-Nudeln + Tomatensoße (~300 kcal)</li>
+    </ul>
+  </div>
+
+  <div class="tip-box">
+    <h3> Frühstück von Vietnam 🇻🇳 </h3>
+    <ul>
+      <li>Reisnudeln + Hähnchenbrust ohne Haut + frischer Kräuter (~320 kcal)</li>
+      <li>1/2 Banh Mi + Spiegelei (~350 kcal)</li>
+      <li>80gr gekochtes Klebreis mit Mais (~300 kcal)</li>
+    </ul>
+
+    <h3>🍛 Mittagessen von Vietnam 🇻🇳</h3>
+    <ul>
+      <li>Vollkornreis + gedünsteter Fisch + gekochter Wasserspinat(~430 kcal)</li>
+      <li>Hähnchenbrust + Süßkartoffel + Brokkoli (~500 kcal)</li>
+      <li>Diät-Version von Bun Bo Hue (~450 kcal)</li>
+    </ul>
+
+    <h3>🍲 Abendessen von Vietnam 🇻🇳</h3>
+    <ul>
+      <li>Kürbis-Garnelen-Suppe + kleine Babybanane (~350 kcal)</li>
+      <li>Tofu in Tomatensauce + Reis (~400 kcal)</li>
+      <li>5 Sommerrollens (extra mit Salat + Garnelen ) (~450 kcal)</li>
+    </ul>
+  </div>
+
+<script>
+/* -------- helper ---------- */
+function $(id){return document.getElementById(id)}
+
+let entries = JSON.parse(localStorage.getItem('kalorienLog')||'[]');
+let total   = entries.reduce((s,e)=>s+e.cal,0);
+render();
+
+/* -------- add new entry --- */
+function addEntry(){
+  const food = $('food').value.trim();
+  const cal  = parseInt($('cal').value,10);
+  if(!food||isNaN(cal)){alert('Bitte gültigen Namen & kcal eingeben');return}
+
+  entries.push({food,cal});
+  localStorage.setItem('kalorienLog',JSON.stringify(entries));
+
+  total += cal;
+  $('food').value='';$('cal').value='';
+  render();
+}
+
+/* -------- render ---------- */
+function render(){
+  $('log').innerHTML = entries.map(e=>`<div class="item">🍽 ${e.food} – ${e.cal} kcal</div>`).join('');
+  $('total').textContent = 'Gesamtkalorien: '+total;
+}
+
+/* -------- reset ----------- */
+function resetAll(){
+  if(!confirm('Alle Einträge löschen?')) return;
+  entries=[]; total=0;
+  localStorage.removeItem('kalorienLog');
+  render();
+}
+</script>
+</body>
+</html>
