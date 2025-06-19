@@ -185,5 +185,30 @@
       render();
     }
   </script>
+  <script>
+function calcTDEE(){
+  const age    = parseInt(document.getElementById('age').value, 10);
+  const height = parseInt(document.getElementById('height').value, 10);
+  const weight = parseFloat(document.getElementById('weight').value);
+  const gender = document.getElementById('gender').value;
+  const activity = parseFloat(document.getElementById('activity').value);
+
+  if(isNaN(age) || isNaN(height) || isNaN(weight)){
+    alert('Bitte Alter, Größe und Gewicht eingeben!');
+    return;
+  }
+
+  let bmr;
+  if(gender === 'male'){
+    bmr = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age;
+  }else{
+    bmr = 447.593 + 9.247 * weight + 3.098 * height - 4.330 * age;
+  }
+
+  const tdee = Math.round(bmr * activity);
+  document.getElementById('bmrResult').innerHTML =
+    `💡 <b>BMR</b>: ${Math.round(bmr)} kcal<br>🔥 <b>TDEE</b>: ${tdee} kcal`;
+}
+</script>
 </body>
 </html>
