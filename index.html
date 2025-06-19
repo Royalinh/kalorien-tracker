@@ -112,7 +112,25 @@
       <li>5 Sommerrollen (mit Salat + Garnelen) (~450 kcal)</li>
     </ul>
   </div>
-
+<h2>TDEE/BMR Rechner</h2>
+<div class="flex">
+  <input type="number" id="age" placeholder="Alter (Jahre)" />
+  <input type="number" id="height" placeholder="Größe (cm)" />
+  <input type="number" id="weight" placeholder="Gewicht (kg)" />
+  <select id="gender">
+    <option value="female">Weiblich</option>
+    <option value="male">Männlich</option>
+  </select>
+  <select id="activity">
+    <option value="1.2">Wenig Bewegung</option>
+    <option value="1.375">Leichte Bewegung</option>
+    <option value="1.55">Moderate Bewegung</option>
+    <option value="1.725">Viel Bewegung</option>
+    <option value="1.9">Sehr viel Bewegung</option>
+  </select>
+  <button onclick="calcTDEE()">Berechnen</button>
+</div>
+<div id="bmrResult" style="margin-top: 10px; font-weight: bold;"></div>
   <script>
     function $(id) {
       return document.getElementById(id);
