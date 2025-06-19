@@ -152,7 +152,7 @@
 
     function render() {
       $('log').innerHTML = entries.map(e =>
-        `<div class="item" style = "color : light black">🍽 ${e.food} – ${e.cal} kcal</div>`
+        `<div class="item" style = "color :black">🍽 ${e.food} – ${e.cal} kcal</div>`
       ).join('');
       $('total').textContent = 'Gesamtkalorien: ' + total;
     }
