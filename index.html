@@ -39,7 +39,7 @@
     .tip-box {
       margin-top: 24px;
       padding: 16px;
-      background: #b38bc9;
+      background: #3a2b43;
       border-left: 5px solid #2e8b57;
       border-radius: 4px;
     }
@@ -58,7 +58,7 @@
     <input type="text" id="food" placeholder="Name des Essens" style="flex:2 1 200px" />
     <input type="number" id="cal" placeholder="kcal" style="width:100px" />
     <button onclick="addEntry()">Hinzufügen</button>
-    <button onclick="resetAll()" style="background:#c0392b">Reset</button>
+    <button onclick="resetAll()" style="background:#d43827">Reset</button>
   </div>
 
   <div id="log"></div>
@@ -152,7 +152,7 @@
 
     function render() {
       $('log').innerHTML = entries.map(e =>
-        `<div class="item" style = "color :black">🍽 ${e.food} – ${e.cal} kcal</div>`
+        `<div class="item" style="color: black">🍽 ${e.food} – ${e.cal} kcal</div>`
       ).join('');
       $('total').textContent = 'Gesamtkalorien: ' + total;
     }
